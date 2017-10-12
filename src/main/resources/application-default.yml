@@ -1,0 +1,16 @@
+########## DRUID_DATA_SOURCE AUTO CONFIG ###############
+spring:
+  druid:
+    url: jdbc:mysql://10.113.194.33:20306/performance?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    username: cmsmon
+    password: cmsmon1
+
+########## SERVER ACCESS ###############
+server:
+  port: 8080
+
+########## Logback ###############
+logging.file: ../performance_webapp_log
+logging.level: DEBUG
+logging.level.sql: DEBUG
+logging.level.com.wtc.admin.performace: DEBUG

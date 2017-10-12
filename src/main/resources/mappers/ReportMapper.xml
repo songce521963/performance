@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wtc.admin.performance.mapper.ReportMapper">
+
+    <insert id="save" parameterType="uploadReport">
+        <foreach collection="uploadReports" item="item" index="index" separator=";">
+            INSERT INTO report
+            (id,
+            date,
+            businessName,
+            businessPID,
+            businessAddress,
+            province,
+            city,
+            area,
+            expandTime,
+            empName,
+            empAlipayAccount,
+            isResignation,
+            priceCoefficient,
+            tranNum,
+            passedTranNum,
+            shamTranNum,
+            activeClientNum,
+            settledClientNum,
+            monthSettleClientNum,
+            remSettleClientNum,
+            marketType,
+            marketName,
+            leadsSources)
+            VALUES
+            (#{item.id},
+            #{item.date},
+            #{item.businessName},
+            #{item.businessPID},
+            #{item.businessAddress},
+            #{item.province},
+            #{item.city},
+            #{item.area},
+            #{item.expandTime},
+            #{item.empName},
+            #{item.empAlipayAccount},
+            #{item.isResignation},
+            #{item.priceCoefficient},
+            #{item.tranNum},
+            #{item.passedTranNum},
+            #{item.shamTranNum},
+            #{item.activeClientNum},
+            #{item.settledClientNum},
+            #{item.monthSettleClientNum},
+            #{item.remSettleClientNum},
+            #{item.marketType},
+            #{item.marketName},
+            #{item.leadsSources})
+        </foreach>
+    </insert>
+
+</mapper>

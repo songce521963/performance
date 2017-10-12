@@ -1,0 +1,23 @@
+########## DRUID_DATA_SOURCE AUTO CONFIG ###############
+spring:
+  druid:
+    url: jdbc:mysql://10.133.134.214:20306/performance?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    username: cmsmon
+    password: cmsmon1
+
+########## SERVER ACCESS ###############
+server:
+  port: 8080
+  tomcat:
+    accesslog:
+      directory: /home/www/logs/tomcat/
+      enabled: true
+      pattern: '%h %l %u %t "%r" %s %b "%{Referer}i" "%{User-Agent}i" "-:- - %T %{_usersession_}i - %{page_uid}i - - -" %{NNB}c - - "-"'
+      prefix: performance_access_log
+      suffix:
+
+########## Logback ###############
+logging.file: ../performance_webapp_log
+logging.level: ERROR
+logging.level.sql: ERROR
+logging.level.com.wtc.admin.performace: INFO

@@ -1,0 +1,39 @@
+########## Spring AUTO CONFIG ###############
+spring:
+  resources:
+    chain:
+      cache: false
+      strategy:
+        content:
+          enabled: true
+          paths: /**
+  thymeleaf:
+    enabled: true
+    cache: false
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+  profiles:
+    active: default
+
+########## DRUID_DATA_SOURCE CONFIG ###############
+spring:
+  druid:
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+
+######### MYBATIS AUTO CONFIG ###############
+mybatis:
+  mapperLocations: classpath:mappers/*.xml
+  typeAliasesPackage: com.wtc.admin.performance.model
