@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class SearchParam extends Page {
+public class SearchParam {
 	// 开始日期
 	private String startDateStr;
 	// 结束日期

@@ -45,7 +45,6 @@
         </foreach>
         FROM (<include refid="searchReportSubSql"></include>) AS sub_report
         ORDER BY sub_report.expandTime DESC
-        LIMIT #{start},#{end}
     </select>
 
     <select id="selectReportCount" parameterType="SearchParam" resultType="int">
