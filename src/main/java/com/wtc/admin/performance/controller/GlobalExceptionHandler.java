@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.wtc.admin.performance.exception.BussinessException;
 import com.wtc.admin.performance.model.RestResponse;
 import com.wtc.admin.performance.utils.RestGenerator;
 import com.wtc.admin.performance.utils.WebContextUtil;
@@ -42,6 +43,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public RestResponse<?> noHandlerFoundExceptionHandler(HttpServletRequest req, NoHandlerFoundException e) {
+        return RestGenerator.errorResult(e.getClass().getSimpleName(), e.getMessage());
+    }
+    
+    @ExceptionHandler(value = BussinessException.class)
+    @ResponseStatus(HttpStatus.OK)
+    public RestResponse<?> noHandlerFoundExceptionHandler(HttpServletRequest req, BussinessException e) {
         return RestGenerator.errorResult(e.getClass().getSimpleName(), e.getMessage());
     }
 

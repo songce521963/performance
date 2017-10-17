@@ -12,5 +12,6 @@ server:
 ########## Logback ###############
 logging.file: ../performance_webapp_log
 logging.level: DEBUG
-logging.level.sql: DEBUG
+logging.level.java.sql: DEBUG
+logging.level.org.springframework.web: DEBUG
 logging.level.com.wtc.admin.performace: DEBUG

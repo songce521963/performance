@@ -1,9 +1,9 @@
 ########## DRUID_DATA_SOURCE AUTO CONFIG ###############
 spring:
   druid:
-    url: jdbc:mysql://10.133.134.214:20306/performance?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
-    username: cmsmon
-    password: cmsmon1
+    url: jdbc:mysql://118.31.250.90:3306/performance?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    username: admin
+    password: Hoteaching2016
 
 ########## SERVER ACCESS ###############
 server:

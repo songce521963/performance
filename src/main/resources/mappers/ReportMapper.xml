@@ -2,37 +2,83 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wtc.admin.performance.mapper.ReportMapper">
 
-    <insert id="save" parameterType="uploadReport">
-        <foreach collection="uploadReports" item="item" index="index" separator=";">
-            INSERT INTO report
-            (id,
-            date,
-            businessName,
-            businessPID,
-            businessAddress,
-            province,
-            city,
-            area,
-            expandTime,
-            empName,
-            empAlipayAccount,
-            isResignation,
-            priceCoefficient,
-            tranNum,
-            passedTranNum,
-            shamTranNum,
-            activeClientNum,
-            settledClientNum,
-            monthSettleClientNum,
-            remSettleClientNum,
-            marketType,
-            marketName,
-            leadsSources)
-            VALUES
-            (#{item.id},
-            #{item.date},
-            #{item.businessName},
+    <sql id="searchReportSubSql">
+        SELECT
+            DISTINCT
+            main.businessPID,
+            main.businessName,
+            main.businessAddress,
+            main.empName,
+            main.expandTime,
+            main.priceCoefficient
+        from report main
+        <trim prefix="where" prefixOverrides="and|or" >
+            <if test="startDate != null and endDate != null" >
+                and date(main.expandTime) BETWEEN date(#{startDate}) AND date(#{endDate})
+            </if>
+            <if test="businessPID != null and businessPID != ''" >
+                and main.businessPID = #{businessPID}
+            </if>
+            <if test="businessName != null and businessName != ''" >
+                and main.businessName LIKE CONCAT('%',#{businessName},'%')
+            </if>
+            <if test="empName != null and empName != ''" >
+                and main.empName LIKE CONCAT('%',#{empName},'%')
+            </if>
+        </trim>
+    </sql>
+
+    <select id="selectReport" parameterType="SearchParam" resultType="SearchReport">
+        SELECT
+        sub_report.businessPID,
+        sub_report.businessName,
+        sub_report.businessAddress,
+        sub_report.empName,
+        sub_report.expandTime,
+        sub_report.priceCoefficient,
+        <foreach collection="list" item="item" index="index" separator="," >
+            (SELECT activeClientNum
+            FROM report ac
+            WHERE ac.date = DATE_FORMAT(date_add(sub_report.expandTime, interval #{item.addDay} day), '%Y%m%d')
+            AND ac.businessPID = sub_report.businessPID
+            ) AS #{item.columnName}
+        </foreach>
+        FROM (<include refid="searchReportSubSql"></include>) AS sub_report
+        ORDER BY sub_report.expandTime DESC
+        LIMIT #{start},#{end}
+    </select>
+
+    <select id="selectReportCount" parameterType="SearchParam" resultType="int">
+        SELECT count(0) from (<include refid="searchReportSubSql"></include>) AS report
+    </select>
+
+    <insert id="save" parameterType="java.util.List">
+        INSERT INTO report
+        (date,
+        businessPID,
+        businessName,
+        businessAddress,
+        province,
+        city,
+        area,
+        expandTime,
+        empName,
+        empAlipayAccount,
+        unitPrice,
+        priceCoefficient,
+        settlementAmount,
+        tranNum,
+        passedTranNum,
+        shamTranNum,
+        activeClientNum,
+        marketType,
+        marketName,
+        leadsSources)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (#{item.date},
             #{item.businessPID},
+            #{item.businessName},
             #{item.businessAddress},
             #{item.province},
             #{item.city},
@@ -40,15 +86,13 @@
             #{item.expandTime},
             #{item.empName},
             #{item.empAlipayAccount},
-            #{item.isResignation},
+            #{item.unitPrice},
             #{item.priceCoefficient},
+            #{item.settlementAmount},
             #{item.tranNum},
             #{item.passedTranNum},
             #{item.shamTranNum},
             #{item.activeClientNum},
-            #{item.settledClientNum},
-            #{item.monthSettleClientNum},
-            #{item.remSettleClientNum},
             #{item.marketType},
             #{item.marketName},
             #{item.leadsSources})

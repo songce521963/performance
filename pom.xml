@@ -2,6 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>naverjp-pom-webapp</artifactId>
+		<groupId>jp.naver.common</groupId>
+		<version>1.0.18</version>
+	</parent>
 
 	<groupId>com.wtc.admin</groupId>
 	<artifactId>performance</artifactId>
@@ -11,15 +16,25 @@
 	<name>performance</name>
 	<description>Performance project for Spring Boot</description>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.7.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<!-- Import dependency management from Spring Boot -->
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>1.4.7.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<naverjp.source.jdkversion>1.8</naverjp.source.jdkversion>
+		<naverjp.target.jdkversion>1.8</naverjp.target.jdkversion>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 	</properties>
@@ -50,10 +65,6 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
 		<!-- commons-lang3 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -73,11 +84,22 @@
 			<version>1.12.6</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- javacsv -->
+		<!-- jada-time -->
 		<dependency>
-				<groupId>net.sourceforge.javacsv</groupId>
-			<artifactId>javacsv</artifactId>
-			<version>2.0</version>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.9.4</version>
+		</dependency>
+		<!-- poi -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.14</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.14</version>
 		</dependency>
 	</dependencies>
 
@@ -86,10 +108,17 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>1.4.3.RELEASE</version>
+				<version>1.4.7.RELEASE</version>
 				<configuration>
 					<fork>true</fork>
 				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

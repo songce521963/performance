@@ -4,10 +4,6 @@ import lombok.Data;
 
 @Data
 public class SearchReport {
-	// id
-	private int id;
-	// 日期
-	private String date;
 	// 商家名称
 	private String businessName;
 	// 商家PID
@@ -18,8 +14,6 @@ public class SearchReport {
 	private String expandTime;
 	// 归属员工姓名
 	private String empName;
-	// 是否具有返佣资格
-	private String isResignation;
 	// 价格系数
 	private Double priceCoefficient;
 	// 第1天（累计有效交易客户数）
