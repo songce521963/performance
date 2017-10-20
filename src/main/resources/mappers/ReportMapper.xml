@@ -16,6 +16,9 @@
             <if test="startDate != null and endDate != null" >
                 and date(main.expandTime) BETWEEN date(#{startDate}) AND date(#{endDate})
             </if>
+            <if test="date != null and date != ''" >
+                and main.date = #{date}
+            </if>
             <if test="businessPID != null and businessPID != ''" >
                 and main.businessPID = #{businessPID}
             </if>

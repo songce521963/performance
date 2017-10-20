@@ -17,6 +17,9 @@ public class SearchParam {
 	// 结束日期
 	private Date endDate;
 	
+	// 日期
+	private String date;
+	
 	// 商家名称
 	private String businessName;
 	// 商家PID

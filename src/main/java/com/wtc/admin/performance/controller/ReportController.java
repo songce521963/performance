@@ -38,7 +38,7 @@ public class ReportController {
 	}
 	
 	@GetMapping("getReport")
-	public RestResponse save(SearchParam param) throws Exception{
+	public RestResponse get(SearchParam param) throws Exception{
 		Map<String,Object> result = reportService.getReport(param);
 		return RestGenerator.successResult(result);
 	}

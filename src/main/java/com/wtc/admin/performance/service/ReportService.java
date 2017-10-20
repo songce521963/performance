@@ -117,6 +117,9 @@ public class ReportService {
     public Map<String,Object> getReport(SearchParam param) {
         param.setStartDate(new DateTime(param.getStartDateStr()).withMillisOfDay(0).toDate());
         param.setEndDate(new DateTime(param.getEndDateStr()).withMillisOfDay(0).toDate());
+        if(StringUtils.isNotBlank(param.getDate())){
+            param.setDate(DateUtil.dateToString(new DateTime(param.getDate()).withMillisOfDay(0).toDate(),DateUtil.YYYYMMDD));
+        }
         param.setList(getActiveClientNumColumns());
         List<SearchReport> list = reportMapper.selectReport(param);
         int total = reportMapper.selectReportCount(param);
