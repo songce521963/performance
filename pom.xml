@@ -10,7 +10,7 @@
 
 	<groupId>com.wtc.admin</groupId>
 	<artifactId>performance</artifactId>
-	<version>0.0.4-SNAPSHOT</version>
+	<version>0.0.5-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>performance</name>
