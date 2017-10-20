@@ -115,10 +115,11 @@ public class ReportService {
      * @param param
      */
     public Map<String,Object> getReport(SearchParam param) {
-        param.setStartDate(new DateTime(param.getStartDateStr()).withMillisOfDay(0).toDate());
-        param.setEndDate(new DateTime(param.getEndDateStr()).withMillisOfDay(0).toDate());
-        if(StringUtils.isNotBlank(param.getDate())){
-            param.setDate(DateUtil.dateToString(new DateTime(param.getDate()).withMillisOfDay(0).toDate(),DateUtil.YYYYMMDD));
+        param.setStartExpandTime(new DateTime(param.getStartExpandTimeStr()).withMillisOfDay(0).toDate());
+        param.setEndExpandTime(new DateTime(param.getEndExpandTimeStr()).withMillisOfDay(0).toDate());
+        if(StringUtils.isNotBlank(param.getStartDate()) && StringUtils.isNotBlank(param.getEndDate()) ){
+            param.setStartDate(DateUtil.dateToString(new DateTime(param.getStartDate()).withMillisOfDay(0).toDate(),DateUtil.YYYYMMDD));
+            param.setEndDate(DateUtil.dateToString(new DateTime(param.getEndDate()).withMillisOfDay(0).toDate(),DateUtil.YYYYMMDD));
         }
         param.setList(getActiveClientNumColumns());
         List<SearchReport> list = reportMapper.selectReport(param);

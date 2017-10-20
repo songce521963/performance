@@ -7,18 +7,19 @@ import java.util.List;
 
 @Data
 public class SearchParam {
-	// 开始日期
-	private String startDateStr;
-	// 结束日期
-	private String endDateStr;
+	// 开始拓展日期
+	private String startExpandTimeStr;
+	// 结束拓展日期
+	private String endExpandTimeStr;
 	
 	// 开始日期
-	private Date startDate;
+	private Date startExpandTime;
 	// 结束日期
-	private Date endDate;
+	private Date endExpandTime;
 	
 	// 日期
-	private String date;
+	private String startDate;
+	private String endDate;
 	
 	// 商家名称
 	private String businessName;

@@ -13,11 +13,11 @@
             main.priceCoefficient
         from report main
         <trim prefix="where" prefixOverrides="and|or" >
-            <if test="startDate != null and endDate != null" >
-                and date(main.expandTime) BETWEEN date(#{startDate}) AND date(#{endDate})
+            <if test="startExpandTime != null and endExpandTime != null" >
+                and date(main.expandTime) BETWEEN date(#{startExpandTime}) AND date(#{endExpandTime})
             </if>
-            <if test="date != null and date != ''" >
-                and main.date = #{date}
+            <if test="startDate != null and startDate != '' and endDate != null and endDate != ''" >
+                and main.date BETWEEN #{startDate} AND #{endDate}
             </if>
             <if test="businessPID != null and businessPID != ''" >
                 and main.businessPID = #{businessPID}
